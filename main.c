@@ -21,19 +21,6 @@ int ft_putstr(char *str)
 	return (0);
 }
 
-int print_arr(char **checkboard)
-{
-	int j;
-
-	j = 0;
-	while (j < 9)
-	{
-		ft_putstr(checkboard[j]);
-		++j;
-	}
-	return (0);
-}
-
 void ft_putnbr(int nb)
 {
 	int	temp;
@@ -55,49 +42,94 @@ void ft_putnbr(int nb)
 		temp %= size;
 		size /= 10;
 	}
-	ft_putchar('\n');
+	/*ft_putchar('\n');*/
 }
 
-int check_checks(char **argv)
+int check_sign_checks(char s)
+{
+	char *cmp;
+	int res;
+
+	res = 0;
+	cmp = ".wb";
+	if (s == cmp[0] || s == cmp[1] || s == cmp[2])
+	{
+		res = 1;
+	}
+	else
+	{
+		res = -1;
+	}
+	return (res);
+}
+
+int check_checks_sign(char **argv)
 {
 	int i;
-	char j;
 	int index;
+	int res;
 
-	j = 'a';
-	i  = 1;
+	i  = 0;
 	index = 1;
 	while (index < 9)
 	{
-		while(i < 9)
+		i = 0;
+		while(i < 8)
 		{
-			if (argv[index][i] != ("." || "w" || "b"))
+			if ((check_sign_checks(argv[index][i]) < 0) && (res = check_ckecks_location(index, i) < 0))
+			{
 				return (-1);
-			if (argv[index][i] == ("w" || "b") && (((i != (2 || 4 || 6 || 8)) && (j != ("a" || "c" || "e" || "g"))) || ((i != (1 || 3 || 5 || 7)) && (j != ("b" || "d" || "f" || "h")))))
-				return (-1);
+			}
 			++i;
 		}
-		ft_putchar(j + 48);
 		++index;
+	}
+	return (1);
+}
+
+int ft_check_loc(char loc)
+{
+	char	*a, *b;
+       
+	a =	"ACEG";
+	b =	"BDFH";
+	if ((loc == b[0] ) || ())
+}
+
+int check_checks_location(char **argv)
+{
+	int res;
+
+	res = 0;
+	++argv;
+
+	if (check_loc(argv) < 0)
+	{
+		ft_putstr("asdasdasd");
+		ft_putstr(*argv);
+		res = (-1);
 	}
 	return (1);
 }
 
 int main(int argc, char **argv)
 {
-	char error[5] = "Error";
-
+	ft_putnbr(argc);
+	ft_putchar('\n');
 	if (argc == 9)
 	{
-		if (check_checks(argv) < 0)
+		if ((check_checks_sign(argv) < 0) || (check_checks_location(argv) < 0))
 		{
-			ft_putstr(error);
+			ft_putstr("error_check");
 		}
-		/*ft_putstr("Nfff");*/
+		else
+		{
+			ft_putstr("Norme_go_toward");
+		}
 	}
 	else
 	{
-		ft_putstr(error);
+		ft_putstr("error_M");
 	}
 	return (0);
 }
