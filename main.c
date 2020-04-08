@@ -42,7 +42,6 @@ void ft_putnbr(int nb)
 		temp %= size;
 		size /= 10;
 	}
-	/*ft_putchar('\n');*/
 }
 
 int check_sign_checks(char s)
@@ -67,7 +66,6 @@ int check_checks_sign(char **argv)
 {
 	int i;
 	int index;
-	int res;
 
 	i  = 0;
 	index = 1;
@@ -76,7 +74,7 @@ int check_checks_sign(char **argv)
 		i = 0;
 		while(i < 8)
 		{
-			if ((check_sign_checks(argv[index][i]) < 0) && (res = check_ckecks_location(index, i) < 0))
+			if (check_sign_checks(argv[index][i]) < 0)
 			{
 				return (-1);
 			}
@@ -87,27 +85,54 @@ int check_checks_sign(char **argv)
 	return (1);
 }
 
-int ft_check_loc(char loc)
+int cmp_index_loc(char char_index, char *char_loc)
+{
+	int	i;
+
+	i =	0;
+	while (char_loc[i])
+	{
+		if (char_index == char_loc[i])
+			return (1);
+		++i;
+	}
+	return (-1);
+}
+
+int check_loc(char char_index, int int_index)
 {
 	char	*a, *b;
-       
-	a =	"ACEG";
-	b =	"BDFH";
-	if ((loc == b[0] ) || ())
+	int	res;
+
+	a =	"BDFH";
+	b =	"ACEG";
+	res = 	-1;
+	if ((cmp_index_loc(char_index, a) > 0) && ((int_index%2) == 0))
+		res = 1;
+	if ((cmp_index_loc(char_index, b) > 0) && ((int_index%2) != 0))
+		res = 1;
+	return (res);
 }
 
 int check_checks_location(char **argv)
 {
-	int res;
+	int j, i;
+	char *char_index;
+	char *checks_color;
 
-	res = 0;
+	j = i = -1;
+	checks_color = "wb";
+	char_index = "ABCDEFGH";
 	++argv;
-
-	if (check_loc(argv) < 0)
+	while (++j != 8)
 	{
-		ft_putstr("asdasdasd");
-		ft_putstr(*argv);
-		res = (-1);
+		while (++i != 8)
+		{
+			if (argv[j][i] == checks_color[0] || argv[j][i] == checks_color[1])
+			{
+				check_loc(char_index[j], i);
+			}
+		}
 	}
 	return (1);
 }
