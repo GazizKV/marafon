@@ -60,25 +60,25 @@ void ft_putnbr(int nb)
 
 int check_checks(char **argv)
 {
-	int i, k;
-
+	int i;
 	char j;
-	j = a;
-	i = k = 1;
-	while (J < 9)
+	int index;
+
+	j = 'a';
+	i  = 1;
+	index = 1;
+	while (index < 9)
 	{
 		while(i < 9)
 		{
-			if (argv[j][i] != (" " || "w" || "b")
+			if (argv[index][i] != ("." || "w" || "b"))
 				return (-1);
-			if (argv[j][i] == ("w" || "b")
-			{
-				if (((i != (2 || 4 || 6 || 8)) && (j != (a || c || e || g))) || ((i != (1 || 3 || 5 || 7)) && (j != (b || d || f || h))))
-					return (-1);
-			}
-			++i
+			if (argv[index][i] == ("w" || "b") && (((i != (2 || 4 || 6 || 8)) && (j != ("a" || "c" || "e" || "g"))) || ((i != (1 || 3 || 5 || 7)) && (j != ("b" || "d" || "f" || "h")))))
+				return (-1);
+			++i;
 		}
-		++j;
+		ft_putchar(j + 48);
+		++index;
 	}
 	return (1);
 }
@@ -92,9 +92,8 @@ int main(int argc, char **argv)
 		if (check_checks(argv) < 0)
 		{
 			ft_putstr(error);
-			return (0);
 		}
-		ft_putstr(find_the_eated_way(argv));
+		/*ft_putstr("Nfff");*/
 	}
 	else
 	{
