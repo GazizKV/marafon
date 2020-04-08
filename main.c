@@ -51,33 +51,54 @@ void ft_putnbr(int nb)
 	temp = nb;
 	while (size)
 	{
-		ft_putchar((char)(temp / size));
+		ft_putchar(temp / size + 48);
 		temp %= size;
 		size /= 10;
 	}
+	ft_putchar('\n');
+}
+
+int check_checks(char **argv)
+{
+	int i, k;
+
+	char j;
+	j = a;
+	i = k = 1;
+	while (J < 9)
+	{
+		while(i < 9)
+		{
+			if (argv[j][i] != (" " || "w" || "b")
+				return (-1);
+			if (argv[j][i] == ("w" || "b")
+			{
+				if (((i != (2 || 4 || 6 || 8)) && (j != (a || c || e || g))) || ((i != (1 || 3 || 5 || 7)) && (j != (b || d || f || h))))
+					return (-1);
+			}
+			++i
+		}
+		++j;
+	}
+	return (1);
 }
 
 int main(int argc, char **argv)
 {
 	char error[5] = "Error";
-	int i;
 
-	i = 0;
-	while ((argc - i) != 0)
+	if (argc == 9)
 	{
-		ft_putnbr(argc);
-		ft_putstr("\n");
-		++i;
-	}
-	if (argc == 8)
-	{
-		print_arr(argv);
-		ft_putstr("w");
+		if (check_checks(argv) < 0)
+		{
+			ft_putstr(error);
+			return (0);
+		}
+		ft_putstr(find_the_eated_way(argv));
 	}
 	else
 	{
 		ft_putstr(error);
-		ft_putstr(argv[0]);
 	}
 	return (0);
 }
