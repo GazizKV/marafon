@@ -88,15 +88,17 @@ int check_checks_sign(char **argv)
 int cmp_index_loc(char char_index, char *char_loc)
 {
 	int	i;
+	int	res;
 
 	i =	0;
-	while (char_loc[i])
+	res =	-1;
+	while (i < 4)
 	{
 		if (char_index == char_loc[i])
-			return (1);
+			res = 1;
 		++i;
 	}
-	return (-1);
+	return (res);
 }
 
 int check_loc(char char_index, int int_index)
@@ -106,35 +108,64 @@ int check_loc(char char_index, int int_index)
 
 	a =	"BDFH";
 	b =	"ACEG";
-	res = 	-1;
-	if ((cmp_index_loc(char_index, a) > 0) && ((int_index%2) == 0))
-		res = 1;
-	if ((cmp_index_loc(char_index, b) > 0) && ((int_index%2) != 0))
-		res = 1;
+	res = 	1;
+	if ((cmp_index_loc(char_index, a) > 0) && ((int_index % 2) == 0))
+		res = -1;
+	if ((cmp_index_loc(char_index, b) > 0) && ((int_index % 2) != 0))
+		res = -1;
 	return (res);
 }
 
 int check_checks_location(char **argv)
 {
-	int j, i;
-	char *char_index;
-	char *checks_color;
+	int	j;
+	int	i;
+	int	res;
+	char	*char_index;
+	char	*checks_color;
 
-	j = i = -1;
+	j = 0;
+	i = -1;
+	res = -1;
 	checks_color = "wb";
-	char_index = "ABCDEFGH";
+	char_index = " ABCDEFGH";
 	++argv;
-	while (++j != 8)
+	while (j != 8)
 	{
-		while (++i != 8)
+		i = 0;
+		while (i != 8)
 		{
 			if (argv[j][i] == checks_color[0] || argv[j][i] == checks_color[1])
 			{
-				check_loc(char_index[j], i);
+				res = check_loc(char_index[j], i);
 			}
+			++i;
 		}
+		++j;
 	}
-	return (1);
+	return (res);
+}
+
+int check_rows_lenth_and_name(char **argv)
+{
+	int	res;
+	char	*name;
+	int	count;
+
+	res =	1;
+	count =	0;
+	name =	"checkers";
+	while (name[count])
+	{
+		ft_putchar(name[count]);
+		ft_putchar(argv[0][count + 2]);
+		if (name[count] != argv[0][count + 2])
+			res = -1;
+		++count;
+	}
+	res = check_lenth(++argv);
+	return (res);
+
 }
 
 int main(int argc, char **argv)
@@ -143,7 +174,7 @@ int main(int argc, char **argv)
 	ft_putchar('\n');
 	if (argc == 9)
 	{
-		if ((check_checks_sign(argv) < 0) || (check_checks_location(argv) < 0))
+		if ((check_checks_sign(argv) < 0) || (check_checks_location(argv) < 0) || (check_rows_lenth_and_name(argv) < 0))
 		{
 			ft_putstr("error_check");
 		}
