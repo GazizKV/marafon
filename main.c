@@ -146,6 +146,32 @@ int check_checks_location(char **argv)
 	return (res);
 }
 
+int check_lenth(char **argv)
+{
+	int	j;
+	int	i;
+	int	res;
+	int	counter;
+
+	j =		0;
+	res =		1;
+	counter =	1;
+	while (argv[j])
+	{
+		counter = 1;
+		i = 0;
+		while (argv[j][i])
+		{
+			++counter;
+			++i;
+		}
+		if (counter != 9)
+			res = -1;
+		++j;
+	}
+	return res;
+}
+
 int check_rows_lenth_and_name(char **argv)
 {
 	int	res;
@@ -157,8 +183,6 @@ int check_rows_lenth_and_name(char **argv)
 	name =	"checkers";
 	while (name[count])
 	{
-		ft_putchar(name[count]);
-		ft_putchar(argv[0][count + 2]);
 		if (name[count] != argv[0][count + 2])
 			res = -1;
 		++count;
