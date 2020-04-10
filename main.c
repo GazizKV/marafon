@@ -215,17 +215,46 @@ int	check(int argc, char **argv)
 	return (res);
 }
 
+char *finding_eated_way(int j, int i, char **argv, char *way, int counter_way)
+{
+	char		*b;
+	char		*hyphen;
+
+	hyphen =	"-";
+	b =		"b";
+	ft_putstr("asdasd");
+	if (argv[j + 1][i - 1] != b[0] || argv[j + 1][i + 1] != b[0])
+	{
+		return (way);
+	}
+	ft_putchar(argv[j + 1][i - 1]);
+	ft_putchar(way[counter_way]);
+	if (argv[j + 1][i - 1] == b[0])
+	{
+		ft_putstr("b");
+		ft_putchar('\n');
+		ft_putchar(way[counter_way]);
+		way[counter_way++] = hyphen[0];
+		ft_putchar(way[counter_way]);
+		way[counter_way++] = argv[j +2][i - 2];
+		ft_putchar(way[counter_way]);
+		j = j + 2;
+		i = i - 1;
+	}
+	return (way);
+}
+
 char	*find_w(char **argv, char *int_index, char *char_index, int counter_way)
 {
 	int	j;
 	int	i;
-	char	*res;
+	char	*way;
 	char	*white_check;
 
 	white_check =	"w";
 	j =		0;
 	i =		0;
-	res =		(char*)malloc(100 * sizeof(char));
+	way =		(char*)malloc(24 * sizeof(char));
 	while (j != 8)
 	{
 		i = 0;
@@ -233,30 +262,15 @@ char	*find_w(char **argv, char *int_index, char *char_index, int counter_way)
 		{
 			if (argv[j][i] == white_check[0])
 			{
-				res[counter_way++] = char_index[j];
-				res[counter_way++] = int_index[i];
+				way[counter_way++] = char_index[j];
+				way[counter_way++] = int_index[i];
+				way = finding_eated_way(j, i, argv, way, counter_way);
 			}
 			++i;
 		}
 		++j;
 	}
-	return (res);
-}
-
-char	*finding_eated_way(char **argv, char *location_w, char int_index, char char_index, int counter_way)
-{
-	int		j;
-	int		i;
-
-	j =		0;
-	location_w
-	while (j != 7)
-	{
-		i = 0;
-		while (i != 7)
-		{
-			
-	return (res);
+	return (way);
 }
 
 char	*get_right_way(char **argv)
@@ -265,15 +279,14 @@ char	*get_right_way(char **argv)
 	char		*char_index;
 	char		*location_w;
 	int		counter_way;
-	char		*eated_way;
 
 	counter_way =	0;
 	int_index =	"12345678";
 	char_index =	"ABCDEFGH";
 	location_w =	find_w(argv, int_index, char_index, counter_way);
 	counter_way = counter_way + 2;
-	eated_way = finding_eated_way(argv, location_w, int_index, char_index, counter_way);
-	return (eated_way);
+	/*eated_way = finding_eated_way(argv, location_w, int_index, char_index, counter_way);*/
+	return (location_w);
 }
 
 int		main(int argc, char **argv)
