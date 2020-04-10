@@ -219,28 +219,71 @@ char *finding_eated_way(int j, int i, char **argv, char *way, int counter_way)
 {
 	char		*b;
 	char		*hyphen;
+	char		*char_index;
+	char		*int_index;
+	char		*dot;
 
-	hyphen =	"-";
+	dot =		".";
+	char_index =	"ABCDEFGH";
+	int_index =	"12345678";
 	b =		"b";
-	ft_putstr("asdasd");
-	if (argv[j + 1][i - 1] != b[0] || argv[j + 1][i + 1] != b[0])
+	hyphen =	"-";
+	if (!((argv[j + 1][i - 1] != b[0]) || (argv[j + 1][i + 1] != b[0])) && counter_way < 3)
 	{
 		return (way);
 	}
-	ft_putchar(argv[j + 1][i - 1]);
-	ft_putchar(way[counter_way]);
 	if (argv[j + 1][i - 1] == b[0])
 	{
-		ft_putstr("b");
-		ft_putchar('\n');
-		ft_putchar(way[counter_way]);
-		way[counter_way++] = hyphen[0];
-		ft_putchar(way[counter_way]);
-		way[counter_way++] = argv[j +2][i - 2];
-		ft_putchar(way[counter_way]);
+		argv[j + 1][i - 1] = dot[0];
+		ft_putnbr(1);
 		j = j + 2;
-		i = i - 1;
+		i = i - 2;
+		if ((i < 0 && i > 7) && (j < 0 && j > 7))
+			return (way);
+		way[counter_way++] = hyphen[0];
+		way[counter_way++] = char_index[j];
+		way[counter_way++] = int_index[i];
 	}
+	if (argv[j + 1][i + 1] == b[0])
+	{
+		argv[j + 1][i + 1] = dot[0];
+		ft_putnbr(1);
+		ft_putnbr(2);
+		j = j + 2;
+		i = i + 2;
+		if ((i < 0 && i > 7) && (j < 0 && j > 7))
+			return (way);
+		way[counter_way++] = hyphen[0];
+		way[counter_way++] = char_index[j];
+		way[counter_way++] = int_index[j];
+	}
+	if ((argv[j - 1][i + 1] == b[0]) && (counter_way > 3))
+	{
+		argv[j - 1][i + 1] = dot[0];
+		ft_putnbr(1);
+		ft_putnbr(3);
+		j = j + 2;
+		j = j - 2;
+		if ((i < 0 && i > 7) && (j < 0 && j > 7))
+			return (way);
+		way[counter_way++] = hyphen[0];
+		way[counter_way++] = char_index[j];
+		way[counter_way++] = int_index[j];
+	}
+	if ((argv[j - 1][i - 1] == b[0]) && (counter_way > 3))
+	{
+		argv[j - 1][i - 1] = dot[0];
+		ft_putnbr(1);
+		ft_putnbr(4);
+		j = j + 2;
+		j = j - 2;
+		if ((i < 0 && i > 7) && (j < 0 && j > 7))
+			return (way);
+		way[counter_way++] = hyphen[0];
+		way[counter_way++] = char_index[j];
+		way[counter_way++] = int_index[j];
+	}
+
 	return (way);
 }
 
