@@ -228,6 +228,15 @@ char *finding_eated_way(int j, int i, char **argv, char *way, int counter_way)
 	int_index =	"12345678";
 	b =		"b";
 	hyphen =	"-";
+	way[counter_way++] = char_index[j];
+	way[counter_way++] = int_index[i];
+	while ((argv[j + 1][i + 1] == b[0]) || (argv[j + 1][i - 1] == b[0]) || (argv[j - 1][i + 1] == b[0]) || (argv[j - 1][i - 1] == b[0]))
+	{
+		if ((i < 0 && i > 7) && (j < 0 && j > 7))
+			return (way);
+		way[counter_way++] = hyphen[0];
+		way[counter_way++] = char_index[j];
+		way[counter_way++] = int_index[i];
 	if (!((argv[j + 1][i - 1] != b[0]) || (argv[j + 1][i + 1] != b[0])) && counter_way < 3)
 	{
 		return (way);
@@ -236,58 +245,46 @@ char *finding_eated_way(int j, int i, char **argv, char *way, int counter_way)
 	{
 		argv[j + 1][i - 1] = dot[0];
 		ft_putnbr(1);
-		j = j + 2;
-		i = i - 2;
-		if ((i < 0 && i > 7) && (j < 0 && j > 7))
-			return (way);
-		way[counter_way++] = hyphen[0];
-		way[counter_way++] = char_index[j];
-		way[counter_way++] = int_index[i];
+		if (!((j + 2 < 0 && j + 2 > 7) && (i - 2 < 0 && i - 2 > 7)))
+		{
+			j = j + 2;
+			i = i - 2;
+		}
 	}
 	if (argv[j + 1][i + 1] == b[0])
 	{
 		argv[j + 1][i + 1] = dot[0];
-		ft_putnbr(1);
 		ft_putnbr(2);
-		j = j + 2;
-		i = i + 2;
-		if ((i < 0 && i > 7) && (j < 0 && j > 7))
-			return (way);
-		way[counter_way++] = hyphen[0];
-		way[counter_way++] = char_index[j];
-		way[counter_way++] = int_index[j];
+		if (!((j + 2 < 0 && j + 2 > 7) && (i + 2 < 0 && i + 2 > 7)))
+		{
+			j = j + 2;
+			i = i + 2;
+		}
 	}
 	if ((argv[j - 1][i + 1] == b[0]) && (counter_way > 3))
 	{
 		argv[j - 1][i + 1] = dot[0];
-		ft_putnbr(1);
 		ft_putnbr(3);
-		j = j + 2;
-		j = j - 2;
-		if ((i < 0 && i > 7) && (j < 0 && j > 7))
-			return (way);
-		way[counter_way++] = hyphen[0];
-		way[counter_way++] = char_index[j];
-		way[counter_way++] = int_index[j];
+		if (!((j - 2 < 0 && j - 2 > 7) && (i + 2 < 0 && i + 2 > 7)))
+		{
+			j = j + 2;
+			j = j - 2;
+		}
 	}
 	if ((argv[j - 1][i - 1] == b[0]) && (counter_way > 3))
 	{
 		argv[j - 1][i - 1] = dot[0];
-		ft_putnbr(1);
 		ft_putnbr(4);
-		j = j + 2;
-		j = j - 2;
-		if ((i < 0 && i > 7) && (j < 0 && j > 7))
-			return (way);
-		way[counter_way++] = hyphen[0];
-		way[counter_way++] = char_index[j];
-		way[counter_way++] = int_index[j];
+		if (!((j - 2 < 0 && j - 2 > 7) && (i - 2 < 0 && i - 2 > 7)))
+		{
+			j = j - 2;
+			i = i - 2;
+		}
 	}
-
 	return (way);
 }
 
-char	*find_w(char **argv, char *int_index, char *char_index, int counter_way)
+char	*find_w(char **argv, int counter_way)
 {
 	int	j;
 	int	i;
@@ -305,8 +302,6 @@ char	*find_w(char **argv, char *int_index, char *char_index, int counter_way)
 		{
 			if (argv[j][i] == white_check[0])
 			{
-				way[counter_way++] = char_index[j];
-				way[counter_way++] = int_index[i];
 				way = finding_eated_way(j, i, argv, way, counter_way);
 			}
 			++i;
@@ -318,21 +313,17 @@ char	*find_w(char **argv, char *int_index, char *char_index, int counter_way)
 
 char	*get_right_way(char **argv)
 {
-	char		*int_index;
-	char		*char_index;
 	char		*location_w;
 	int		counter_way;
 
 	counter_way =	0;
-	int_index =	"12345678";
-	char_index =	"ABCDEFGH";
-	location_w =	find_w(argv, int_index, char_index, counter_way);
+	location_w =	find_w(argv, counter_way);
 	counter_way = counter_way + 2;
 	/*eated_way = finding_eated_way(argv, location_w, int_index, char_index, counter_way);*/
 	return (location_w);
 }
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	if (check(argc, argv) < 0)
 		ft_putstr("Error\0");
