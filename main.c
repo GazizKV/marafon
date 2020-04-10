@@ -1,13 +1,14 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-int ft_putchar(char c)
+int	ft_putchar(char c)
 {
 	write(1, &c, 1);
 	return (0);
 }
 
-int ft_putstr(char *str)
+int	ft_putstr(char *str)
 {
 	int i;
 
@@ -21,7 +22,7 @@ int ft_putstr(char *str)
 	return (0);
 }
 
-void ft_putnbr(int nb)
+void	ft_putnbr(int nb)
 {
 	int	temp;
 	int	size;
@@ -44,7 +45,7 @@ void ft_putnbr(int nb)
 	}
 }
 
-int check_sign_checks(char s)
+int	check_sign_checks(char s)
 {
 	char *cmp;
 	int res;
@@ -62,7 +63,7 @@ int check_sign_checks(char s)
 	return (res);
 }
 
-int check_checks_sign(char **argv)
+int	check_checks_sign(char **argv)
 {
 	int i;
 	int index;
@@ -85,7 +86,7 @@ int check_checks_sign(char **argv)
 	return (1);
 }
 
-int cmp_index_loc(char char_index, char *char_loc)
+int	cmp_index_loc(char char_index, char *char_loc)
 {
 	int	i;
 	int	res;
@@ -101,7 +102,7 @@ int cmp_index_loc(char char_index, char *char_loc)
 	return (res);
 }
 
-int check_loc(char char_index, int int_index)
+int	check_loc(char char_index, int int_index)
 {
 	char	*a, *b;
 	int	res;
@@ -115,8 +116,7 @@ int check_loc(char char_index, int int_index)
 		res = -1;
 	return (res);
 }
-
-int check_checks_location(char **argv)
+int	check_checks_location(char **argv)
 {
 	int	j;
 	int	i;
@@ -146,7 +146,7 @@ int check_checks_location(char **argv)
 	return (res);
 }
 
-int check_lenth(char **argv)
+int	check_lenth(char **argv)
 {
 	int	j;
 	int	i;
@@ -172,7 +172,7 @@ int check_lenth(char **argv)
 	return res;
 }
 
-int check_rows_lenth_and_name(char **argv)
+int	check_rows_lenth_and_name(char **argv)
 {
 	int	res;
 	char	*name;
@@ -192,24 +192,95 @@ int check_rows_lenth_and_name(char **argv)
 
 }
 
-int main(int argc, char **argv)
+int	check(int argc, char **argv)
 {
-	ft_putnbr(argc);
-	ft_putchar('\n');
+	int	res;
+
+	res =	1;
 	if (argc == 9)
 	{
 		if ((check_checks_sign(argv) < 0) || (check_checks_location(argv) < 0) || (check_rows_lenth_and_name(argv) < 0))
 		{
-			ft_putstr("error_check");
+			res = -1;
 		}
 		else
 		{
-			ft_putstr("Norme_go_toward");
+			res = 1;
 		}
 	}
 	else
 	{
-		ft_putstr("error_M");
+		res = -1;
 	}
+	return (res);
+}
+
+char	*find_w(char **argv, char *int_index, char *char_index, int counter_way)
+{
+	int	j;
+	int	i;
+	char	*res;
+	char	*white_check;
+
+	white_check =	"w";
+	j =		0;
+	i =		0;
+	res =		(char*)malloc(100 * sizeof(char));
+	while (j != 8)
+	{
+		i = 0;
+		while (i != 8)
+		{
+			if (argv[j][i] == white_check[0])
+			{
+				res[counter_way++] = char_index[j];
+				res[counter_way++] = int_index[i];
+			}
+			++i;
+		}
+		++j;
+	}
+	return (res);
+}
+
+char	*finding_eated_way(char **argv, char *location_w, char int_index, char char_index, int counter_way)
+{
+	int		j;
+	int		i;
+
+	j =		0;
+	location_w
+	while (j != 7)
+	{
+		i = 0;
+		while (i != 7)
+		{
+			
+	return (res);
+}
+
+char	*get_right_way(char **argv)
+{
+	char		*int_index;
+	char		*char_index;
+	char		*location_w;
+	int		counter_way;
+	char		*eated_way;
+
+	counter_way =	0;
+	int_index =	"12345678";
+	char_index =	"ABCDEFGH";
+	location_w =	find_w(argv, int_index, char_index, counter_way);
+	counter_way = counter_way + 2;
+	eated_way = finding_eated_way(argv, location_w, int_index, char_index, counter_way);
+	return (eated_way);
+}
+
+int		main(int argc, char **argv)
+{
+	if (check(argc, argv) < 0)
+		ft_putstr("Error\0");
+	else
+		ft_putstr(get_right_way(++argv));
 	return (0);
 }
